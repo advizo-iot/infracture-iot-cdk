@@ -10,7 +10,7 @@ on:
       - ".github/**"
 
 jobs:
-  deploy_ms:
+  deploy:
     runs-on: ubuntu-latest
 
     steps:
