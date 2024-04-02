@@ -1,16 +1,13 @@
 import * as cdk from 'aws-cdk-lib';
 import { Construct } from 'constructs';
-// import * as sqs from 'aws-cdk-lib/aws-sqs';
+import { stackReactIot } from './stack/stackReactIot';
+
 
 export class CdkInfractureIotStack extends cdk.Stack {
   constructor(scope: Construct, id: string, props?: cdk.StackProps) {
     super(scope, id, props);
 
-    // The code that defines your stack goes here
+    const stackAdvizoIot = stackReactIot(this); 
 
-    // example resource
-    // const queue = new sqs.Queue(this, 'CdkInfractureIotQueue', {
-    //   visibilityTimeout: cdk.Duration.seconds(300)
-    // });
   }
 }
