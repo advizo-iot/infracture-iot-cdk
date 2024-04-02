@@ -20,7 +20,6 @@ export const stackReactIot = (scope: Stack) => {
   ////////////////////////////////    CREATE BUCKETS S3    ///////////////////////////////
   ////////////////////////////////////////////////////////////////////////////////////////
   
-
   const advizoIOTResources = new s3.Bucket(scope, 'advizoIOTResources', {
     versioned: false,
     bucketName: 'advizo-iot-fire-resources',
