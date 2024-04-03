@@ -8,3 +8,14 @@ def query_select_users(username, password):
       and password = '{password}'
     ;
     """
+
+def query_get_map(dni):
+  return f"""
+    select distinct
+      map_id,
+      url_map,
+      coordenates
+      from production_raw_iot_advizo.map_factory
+      where dni = '{dni}'
+    ;
+    """
