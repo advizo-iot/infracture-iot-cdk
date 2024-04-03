@@ -1,0 +1,33 @@
+name: Create folders tp S3
+
+on:
+  push:
+    branches:
+      - develop
+      - qa
+      - master
+    paths-ignore:
+      - ".github/**"
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      - name: Install AWS CLI
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y awscli
+
+      - name: Configure aws credentials
+        uses: aws-actions/configure-aws-credentials@master
+        with:
+          aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID  }}
+          aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY  }}
+          aws-region: ${{ secrets.AWS_DEFAULT_REGION  }}
+
+      - name: Run main.py script
+        run: python ./resources/s3/main.py
