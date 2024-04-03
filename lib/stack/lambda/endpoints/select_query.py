@@ -1,11 +1,10 @@
 def query_select_users(username, password):
   return f"""
-    select 
+    select distinct
       dni,
-      username,
-      password,
-      nombre
-      from production_stage_energas.users
+      nombre as name
+      from production_raw_iot_advizo.users
       where username = '{username}'
-      and password = '{password}';
+      and password = '{password}'
+    ;
     """

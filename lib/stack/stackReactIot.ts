@@ -57,6 +57,8 @@ export const stackReactIot = (scope: Stack) => {
       metricsEnabled: true,
       loggingLevel: MethodLoggingLevel.INFO, 
       dataTraceEnabled: true,
+      throttlingRateLimit: 2,
+      throttlingBurstLimit: 4,
     },
     cloudWatchRole: true,
     defaultCorsPreflightOptions: {
