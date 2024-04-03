@@ -19,6 +19,7 @@ export const stackReactIot = (scope: Stack) => {
   });
 
   iotReactFireRole.addManagedPolicy(ManagedPolicy.fromAwsManagedPolicyName('AmazonS3FullAccess'));
+  iotReactFireRole.addManagedPolicy(ManagedPolicy.fromAwsManagedPolicyName('AWSLambda_FullAccess'));
 
   ////////////////////////////////////////////////////////////////////////////////////////
   ////////////////////////////////    CREATE BUCKETS S3    ///////////////////////////////
