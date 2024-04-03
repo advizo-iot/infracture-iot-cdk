@@ -26,3 +26,5 @@ class apiGatewayIOT:
 
         resultJSON = json.dumps(resultDict)
         print(f"Result JSON: {resultJSON}")
+
+        return resultJSON

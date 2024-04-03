@@ -18,7 +18,21 @@ def lambda_handler(event, context):
     data_endpoint = body['data']
     print("Data Endpoint: ", data_endpoint)
 
+    resultJson = None
+
     if endpoint == "loginIotApp":
-      api.loginIotApp(data_endpoint,RESULT_OUTPUT_LOCATION)
+      resultJson = api.loginIotApp(data_endpoint,RESULT_OUTPUT_LOCATION)
     else:
       print("Endpoint not found")
+
+    headers = {
+        "Access-Control-Allow-Origin": "*",
+        "Access-Control-Allow-Headers": "Content-Type",
+        "Access-Control-Allow-Methods": "OPTIONS,GET,POST"
+        }
+
+    return {
+    'statusCode': 200,
+    'headers': headers,
+    'body': resultJson
+    }
