@@ -6,8 +6,6 @@ on:
       - develop
       - qa
       - master
-    paths-ignore:
-      - ".github/**"
     paths:
       - "lib/stack/**"
 
