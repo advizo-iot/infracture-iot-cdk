@@ -3,7 +3,7 @@ CLIENT = boto3.client("athena")
 DATABASE_NAME = "production_raw_iot_advizo"
 RESULT_OUTPUT_LOCATION = "s3://advizo-iot-fire-resources/athenadb/queries/"
 CATALOG_NAME = "AWSDataCatalog"
-ddl_file = "ddl/map_factory.ddl"
+ddl_file = "ddl/coordenates.ddl"
 
 def has_query_succeeded(execution_id):
     state = "RUNNING"
