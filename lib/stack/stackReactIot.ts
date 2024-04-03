@@ -5,6 +5,7 @@ import { Role, ServicePrincipal, ManagedPolicy,Effect,PolicyStatement } from 'aw
 import { Fn, Duration } from 'aws-cdk-lib';
 import path = require('path');
 import { Function, Runtime, Code, LayerVersion, Architecture } from 'aws-cdk-lib/aws-lambda';
+import { RestApi, LambdaIntegration,Cors ,MethodLoggingLevel} from 'aws-cdk-lib/aws-apigateway';
 
 export const stackReactIot = (scope: Stack) => {
 
@@ -32,6 +33,7 @@ export const stackReactIot = (scope: Stack) => {
   });
 
   ////////////////////////////////////////////////////////////////////////////////////////
+  ////////////////////////////        CREATE AWS LAMBDAS       ///////////////////////////
   ////////////////////////////////////////////////////////////////////////////////////////
 
   const loginIotApp = new Function(scope, 'loginIotApp', {
@@ -42,5 +44,38 @@ export const stackReactIot = (scope: Stack) => {
     timeout: Duration.minutes(10),
     role: iotReactFireRole,
   });
+
+  ////////////////////////////////////////////////////////////////////////////////////////
+  //////////////////////////////      CREATE AWS APIS      ///////////////////////////////
+  ////////////////////////////////////////////////////////////////////////////////////////
+
+  const apiAdvizoIot = new RestApi(scope, `apiAdvizoIot`, {
+    restApiName: `iot-advizo-api`,
+    deployOptions: {
+      metricsEnabled: true,
+      loggingLevel: MethodLoggingLevel.INFO, 
+      dataTraceEnabled: true,
+    },
+    cloudWatchRole: true,
+    defaultCorsPreflightOptions: {
+      allowOrigins: Cors.ALL_ORIGINS,
+      allowMethods: ["OPTIONS", "GET", "POST", "PUT", "PATCH", "DELETE"],
+      allowHeaders: Cors.DEFAULT_HEADERS, 
+    },
+  });
+
+  ////////////////////////////////////////////////////////////////////////////////////////
+  ///////////////////////////      CREATE RESOURCES APIS      ////////////////////////////
+  ////////////////////////////////////////////////////////////////////////////////////////
+
+  const createloginIotApp = new LambdaIntegration(loginIotApp, 
+    {allowTestInvoke: false,});
+
+  ////////////////////////////////////////////////////////////////////////////////////////
+  /////////////////////////////      CREATE METHOD APIS     //////////////////////////////
+  ////////////////////////////////////////////////////////////////////////////////////////
+
+  const resourcePostpushmessageIot = apiAdvizoIot.root.addResource("loginIotApp");
+    resourcePostpushmessageIot.addMethod("POST", createloginIotApp); 
 
 }
