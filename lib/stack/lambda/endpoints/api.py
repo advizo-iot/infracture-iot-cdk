@@ -38,7 +38,7 @@ class apiGatewayIOT:
         queryID = athenaQuery(athena_client,query,location)
         resultQuery = waitQueryExecution(athena_client,queryID) 
         print(f"Result: {resultQuery['ResultSet']['Rows']} [getMapUser][apiGatewayIOT]")
-        resultDict = {'map_id': None, 'url_map': None, 'coordenates': None, 'status': 'nok'}
+        resultDict = {'map_id': None, 'url_map': None, 'status': 'nok'}
 
         resultJSON = json.dumps(resultDict)
         print(f"Result JSON: {resultJSON}")
