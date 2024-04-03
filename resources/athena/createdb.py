@@ -2,10 +2,11 @@ import boto3, time
 CLIENT = boto3.client("athena")
 DATABASE_NAME = "production_raw_iot_advizo"
 RESULT_OUTPUT_LOCATION = "s3://advizo-iot-fire-resources/athenadb/queries/"
+CATALOG_NAME = "AWSDataCatalog"
 
 
 def create_database():
-    databases = CLIENT.list_databases()
+    databases = CLIENT.list_databases(CatalogName=CATALOG_NAME)
     existing_databases = [db["Name"] for db in databases["DatabaseList"]]
 
     if DATABASE_NAME not in existing_databases:
