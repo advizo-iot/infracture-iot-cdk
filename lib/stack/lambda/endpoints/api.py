@@ -61,11 +61,33 @@ class apiGatewayIOT:
         athena_client = boto3.client('athena')
 
         print(f"Data: {data} [getMapCoordenates][apiGatewayIOT]")
-        query = query_get_coordenates(data['dni'])
+        query = query_get_coordenates(data['dni'],data['map_id'])
         print(f"Query: {query} [getMapCoordenates][apiGatewayIOT]")
         queryID = athenaQuery(athena_client,query,location)
         resultQuery = waitQueryExecution(athena_client,queryID)
         print(f"Result: {resultQuery['ResultSet']['Rows']} [getMapCoordenates][apiGatewayIOT]")
-        resultDict = {'dni': None, 'map_id': None, 'sensor_id': None, 'coordenates': None, 'status': 'nok'}
+        resultDict = {'data': []}
 
+        for row in resultQuery['ResultSet']['Rows']:
+            rowData = row['Data']
+            print(f"Row Data: {rowData}")
+            if rowData[0]['VarCharValue'] == 'dni':
+                continue
+            
+            dni = rowData[0]['VarCharValue']
+            map_id = rowData[1]['VarCharValue']
+            sensor_id = rowData[2]['VarCharValue']
+            coordenates = rowData[3]['VarCharValue']
+
+            resultDict['data'].append({
+                'dni': dni,
+                'map_id': map_id,
+                'sensor_id': sensor_id,
+                'coordinates': coordenates
+            })
+
+        resultJSON = json.dumps(resultDict)
+        print(f"Result JSON: {resultJSON}")
+
+        return resultJSON
         
