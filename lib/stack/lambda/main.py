@@ -10,7 +10,7 @@ def lambda_handler(event, context):
 
     body = json.loads(event["body"])
     print("Body: ", body)
-    endpoint = dict(body['endpoint'])
+    endpoint = body['endpoint']
     print("Endpoint: ", endpoint)
-    data_endpoint = dict(endpoint['data'])
+    data_endpoint = body['data']
     print("Data Endpoint: ", data_endpoint)
