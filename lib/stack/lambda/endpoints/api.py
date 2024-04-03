@@ -1,5 +1,5 @@
 from endpoints.select_query import query_select_users,query_get_map,query_get_coordenates
-from endpoints.utils import athenaQuery,waitQueryExecution
+from endpoints.utils import athenaQuery,waitQueryExecution,download_image_from_s3
 import boto3,json
 
 class apiGatewayIOT:
@@ -49,6 +49,7 @@ class apiGatewayIOT:
             url_map = rowData[2]['VarCharValue']
             resultDict['dni'] = dni
             resultDict['map_id'] = map_id
+            download_image_from_s3(url_map)
             resultDict['url_map'] = url_map
             resultDict['status'] = 'ok'
 
