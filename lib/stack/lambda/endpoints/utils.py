@@ -41,7 +41,7 @@ def download_image_from_s3(url):
     response = s3.get_object(Bucket=bucket_name, Key=object_key)
     image_data = response['Body'].read()
     image_base64 = base64.b64encode(image_data).decode('utf-8')
-    print("Image downloaded from s3")
-    print(f"Image base64: {image_base64}")
+    # print("Image downloaded from s3")
+    # print(f"Image base64: {image_base64}")
     
     return image_base64
