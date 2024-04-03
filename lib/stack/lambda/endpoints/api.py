@@ -1,4 +1,4 @@
-from endpoints.select_query import query_select_users,query_get_map
+from endpoints.select_query import query_select_users,query_get_map,query_get_coordenates
 from endpoints.utils import athenaQuery,waitQueryExecution
 import boto3,json
 
@@ -59,5 +59,13 @@ class apiGatewayIOT:
     
     def getMapCoordenates(self,data,location):
         athena_client = boto3.client('athena')
+
+        print(f"Data: {data} [getMapCoordenates][apiGatewayIOT]")
+        query = query_get_coordenates(data['dni'])
+        print(f"Query: {query} [getMapCoordenates][apiGatewayIOT]")
+        queryID = athenaQuery(athena_client,query,location)
+        resultQuery = waitQueryExecution(athena_client,queryID)
+        print(f"Result: {resultQuery['ResultSet']['Rows']} [getMapCoordenates][apiGatewayIOT]")
+        resultDict = {'dni': None, 'map_id': None, 'sensor_id': None, 'coordenates': None, 'status': 'nok'}
 
         

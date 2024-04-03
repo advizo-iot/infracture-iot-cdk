@@ -24,6 +24,8 @@ def lambda_handler(event, context):
       resultJson = api.loginIotApp(data_endpoint,RESULT_OUTPUT_LOCATION)
     if endpoint == "getMapUser":
       resultJson = api.getMapUser(data_endpoint,RESULT_OUTPUT_LOCATION)
+    if endpoint == "getMapCoordenates":
+      resultJson = api.getMapCoordenates(data_endpoint,RESULT_OUTPUT_LOCATION)
     else:
       print("Endpoint not found")
 
