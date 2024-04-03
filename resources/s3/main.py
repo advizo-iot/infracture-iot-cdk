@@ -14,7 +14,7 @@ def create_folder(folder_name,client,bucket):
           client.put_object(Bucket=bucket_name, Key=(folder+'/'))
 
 def main():
-    create_folder(folders,s3,bucket_name)
+    create_folder(folders,s3,bucket_name) 
 
 if __name__ == "__main__":
     main()
