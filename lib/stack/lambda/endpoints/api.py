@@ -78,12 +78,16 @@ class apiGatewayIOT:
             map_id = rowData[1]['VarCharValue']
             sensor_id = rowData[2]['VarCharValue']
             coordenates = rowData[3]['VarCharValue']
+            coordinates_str = coordenates.strip("{ }").split(", ")
+            x_value = float(coordinates_str[0].split(":")[1].strip())
+            y_value = float(coordinates_str[1].split(":")[1].strip())
+            coordinates = {"x": x_value, "y": y_value}
 
             resultDict['data'].append({
                 'dni': dni,
                 'map_id': map_id,
                 'sensor_id': sensor_id,
-                'coordinates': coordenates
+                'coordinates': coordinates
             })
 
         resultJSON = json.dumps(resultDict)
