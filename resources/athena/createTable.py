@@ -27,7 +27,8 @@ def has_query_succeeded(execution_id):
 
 def create_table(TABLE_DDL_TABLE):
     table_name = TABLE_DDL_TABLE.split("/")[-1].split(".")[0]
-    tables = CLIENT.list_table_metadata(DatabaseName=DATABASE_NAME)
+    print(f"Creating table '{table_name}' in database '{DATABASE_NAME}'")
+    tables = CLIENT.list_table_metadata(CatalogName=CATALOG_NAME,DatabaseName=DATABASE_NAME)
     existing_tables = [table["Name"] for table in tables["TableMetadataList"]]
     if table_name in existing_tables:
         print(f"Table '{table_name}' already exists in database '{DATABASE_NAME}'. Skipping table creation.")
