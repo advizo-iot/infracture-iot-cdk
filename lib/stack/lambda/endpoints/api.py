@@ -38,9 +38,26 @@ class apiGatewayIOT:
         queryID = athenaQuery(athena_client,query,location)
         resultQuery = waitQueryExecution(athena_client,queryID) 
         print(f"Result: {resultQuery['ResultSet']['Rows']} [getMapUser][apiGatewayIOT]")
-        resultDict = {'map_id': None, 'url_map': None, 'status': 'nok'}
+        resultDict = {'dni': None, 'map_id': None, 'url_map': None, 'status': 'nok'}
+
+        for row in resultQuery['ResultSet']['Rows']:
+            rowData = row['Data']
+            if rowData[0]['VarCharValue'] == 'dni':
+                continue
+            dni = rowData[0]['VarCharValue']
+            map_id = rowData[1]['VarCharValue']
+            url_map = rowData[2]['VarCharValue']
+            resultDict['dni'] = dni
+            resultDict['map_id'] = map_id
+            resultDict['url_map'] = url_map
+            resultDict['status'] = 'ok'
 
         resultJSON = json.dumps(resultDict)
         print(f"Result JSON: {resultJSON}")
 
         return resultJSON
+    
+    def getMapCoordenates(self,data,location):
+        athena_client = boto3.client('athena')
+
+        
