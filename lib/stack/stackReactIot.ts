@@ -6,6 +6,7 @@ import { Fn, Duration } from 'aws-cdk-lib';
 import path = require('path');
 import { Function, Runtime, Code, LayerVersion, Architecture } from 'aws-cdk-lib/aws-lambda';
 import { RestApi, LambdaIntegration,Cors ,MethodLoggingLevel} from 'aws-cdk-lib/aws-apigateway';
+import { aws_athena as athena } from 'aws-cdk-lib';
 
 export const stackReactIot = (scope: Stack) => {
 
@@ -79,4 +80,17 @@ export const stackReactIot = (scope: Stack) => {
   const resourcePostpushmessageIot = apiAdvizoIot.root.addResource("apiIotAdvizo");
     resourcePostpushmessageIot.addMethod("POST", createloginIotApp); 
 
+
+  ////////////////////////////////////////////////////////////////////////////////////////
+  /////////////////////////////        CREATE ATHENA DB      /////////////////////////////
+  ////////////////////////////////////////////////////////////////////////////////////////
+  
+  const database = new athena.CfnDataCatalog(scope, 'advizoIOTDataCatalog', {
+    name: 'advizo-iot-data-catalog',
+    type: 'HIVE',
+    description: 'advizo-iot-data-catalog',
+  });
+    
+
+  
 }
