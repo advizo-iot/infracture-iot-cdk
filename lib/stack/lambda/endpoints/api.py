@@ -38,7 +38,7 @@ class apiGatewayIOT:
         queryID = athenaQuery(athena_client,query,location)
         resultQuery = waitQueryExecution(athena_client,queryID) 
         print(f"Result: {resultQuery['ResultSet']['Rows']} [getMapUser][apiGatewayIOT]")
-        resultDict = {'dni': None, 'map_id': None, 'url_map': None, 'status': 'nok'}
+        resultDict = {'dni': None, 'map_id': None, 'mapb64': None, 'status': 'nok'}
 
         for row in resultQuery['ResultSet']['Rows']:
             rowData = row['Data']
@@ -49,8 +49,8 @@ class apiGatewayIOT:
             url_map = rowData[2]['VarCharValue']
             resultDict['dni'] = dni
             resultDict['map_id'] = map_id
-            download_image_from_s3(url_map)
-            resultDict['url_map'] = url_map
+            image_base64 = download_image_from_s3(url_map)
+            resultDict['mapb64'] = image_base64
             resultDict['status'] = 'ok'
 
         resultJSON = json.dumps(resultDict)
