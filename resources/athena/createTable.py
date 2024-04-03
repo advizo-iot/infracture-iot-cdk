@@ -1,4 +1,4 @@
-import boto3, time
+import boto3, time, os
 CLIENT = boto3.client("athena")
 DATABASE_NAME = "production_raw_iot_advizo"
 RESULT_OUTPUT_LOCATION = "s3://advizo-iot-fire-resources/athenadb/queries/"
@@ -43,7 +43,10 @@ def create_table(TABLE_DDL_TABLE):
         return response["QueryExecutionId"]
     
 def main():
-  execution_id = create_table(ddl_file)
+  script_dir = os.path.dirname(os.path.abspath(__file__))
+  ddl_file_path = os.path.join(script_dir, ddl_file)
+  print(f"DDL file path: {ddl_file_path}")
+  execution_id = create_table(ddl_file_path)
   if execution_id is None:
     return
   print(f"Create Table users execution id: {execution_id}")
