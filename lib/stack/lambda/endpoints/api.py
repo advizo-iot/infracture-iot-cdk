@@ -10,5 +10,5 @@ class apiGatewayIOT:
         query = query_select_users(data['username'],data['password'])
         print(f"Query: {query} [loginIotApp][apiGatewayIOT]")
         queryID = athenaQuery(athena_client,query,location)
-        resultQuery = waitQueryExecution(athena_client,queryID)
+        resultQuery = waitQueryExecution(athena_client,queryID) 
         print(f"Result: {resultQuery} [loginIotApp][apiGatewayIOT]")
