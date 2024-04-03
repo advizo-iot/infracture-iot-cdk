@@ -14,7 +14,7 @@ export const stackReactIot = (scope: Stack) => {
   ////////////////////////////////////////////////////////////////////////////////////////
 
   const iotReactFireRole = new Role(scope, 'iotReactFireRole', {
-    assumedBy: new ServicePrincipal('s3.amazonaws.com'),
+    assumedBy: new ServicePrincipal('lambda.amazonaws.com'),
     roleName: 'iotReactFireRole',
   });
 
@@ -37,11 +37,11 @@ export const stackReactIot = (scope: Stack) => {
   ////////////////////////////        CREATE AWS LAMBDAS       ///////////////////////////
   ////////////////////////////////////////////////////////////////////////////////////////
 
-  const loginIotApp = new Function(scope, 'loginIotApp', {
+  const apiIotAdvizo = new Function(scope, 'apiIotAdvizo', {
     runtime: Runtime.PYTHON_3_9, 
     handler: 'main.lambda_handler',
-    code: Code.fromAsset(path.join(__dirname, './lambda/loginIotApp')),
-    functionName: 'loginIotApp',
+    code: Code.fromAsset(path.join(__dirname, './lambda')),
+    functionName: 'apiIotAdvizo',
     timeout: Duration.minutes(10),
     role: iotReactFireRole,
   });
@@ -69,14 +69,14 @@ export const stackReactIot = (scope: Stack) => {
   ///////////////////////////      CREATE RESOURCES APIS      ////////////////////////////
   ////////////////////////////////////////////////////////////////////////////////////////
 
-  const createloginIotApp = new LambdaIntegration(loginIotApp, 
+  const createloginIotApp = new LambdaIntegration(apiIotAdvizo, 
     {allowTestInvoke: false,});
 
   ////////////////////////////////////////////////////////////////////////////////////////
   /////////////////////////////      CREATE METHOD APIS     //////////////////////////////
   ////////////////////////////////////////////////////////////////////////////////////////
 
-  const resourcePostpushmessageIot = apiAdvizoIot.root.addResource("loginIotApp");
+  const resourcePostpushmessageIot = apiAdvizoIot.root.addResource("apiIotAdvizo");
     resourcePostpushmessageIot.addMethod("POST", createloginIotApp); 
 
 }
