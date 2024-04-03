@@ -1,8 +1,7 @@
 CREATE EXTERNAL TABLE IF NOT EXISTS production_raw_iot_advizo.map_factory (
   dni VARCHAR(255),
   map_id VARCHAR(255),
-  url_map VARCHAR(255),
-  coordenates STRING
+  url_map VARCHAR(255)
 )
 ROW FORMAT DELIMITED 
 FIELDS TERMINATED BY ';'
