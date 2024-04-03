@@ -89,6 +89,10 @@ export const stackReactIot = (scope: Stack) => {
     name: 'advizo-iot-data-catalog',
     type: 'HIVE',
     description: 'advizo-iot-data-catalog',
+    parameters: {
+      'catalog_type': 'HIVE',
+      'description': 'advizo-iot-data-catalog',
+    },
   });
     
 
