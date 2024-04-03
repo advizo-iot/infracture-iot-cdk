@@ -1,5 +1,5 @@
 CREATE EXTERNAL TABLE IF NOT EXISTS production_raw_iot_advizo.users (
-  id VARCHAR(255),
+  dni VARCHAR(255),
   username VARCHAR(255),
   password VARCHAR(255),
   nombre VARCHAR(255)
