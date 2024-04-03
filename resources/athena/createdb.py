@@ -19,6 +19,7 @@ def create_database():
         return response["QueryExecutionId"]
     else:
         print(f"Database '{DATABASE_NAME}' already exists. [create_database]")
+        return None
 
 def has_query_succeeded(execution_id):
     state = "RUNNING"
@@ -42,6 +43,8 @@ def has_query_succeeded(execution_id):
 
 def main():
     execution_id = create_database()
+    if execution_id is None:
+        return
     print(f"Checking query execution for: {execution_id}")
     query_status = has_query_succeeded(execution_id=execution_id)
     print(f"Query status: {query_status}")
