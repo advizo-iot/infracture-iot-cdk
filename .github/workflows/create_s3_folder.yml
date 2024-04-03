@@ -8,6 +8,8 @@ on:
       - master
     paths-ignore:
       - ".github/**"
+    paths:
+      - "resources/s3/**"
 
 jobs:
   deploy:
