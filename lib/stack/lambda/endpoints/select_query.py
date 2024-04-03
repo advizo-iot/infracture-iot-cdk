@@ -1,6 +1,7 @@
 def query_select_users(username, password):
   return f"""
     select 
+      dni,
       username,
       password,
       nombre

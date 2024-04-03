@@ -19,6 +19,6 @@ def lambda_handler(event, context):
     print("Data Endpoint: ", data_endpoint)
 
     if endpoint == "loginIotApp":
-      api.loginIotApp(data_endpoint)
+      api.loginIotApp(data_endpoint,RESULT_OUTPUT_LOCATION)
     else:
       print("Endpoint not found")
