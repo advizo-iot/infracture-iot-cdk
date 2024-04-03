@@ -1,4 +1,4 @@
-from select_query import query_select_users
+from endpoints.select_query import query_select_users
 
 class apiGatewayIOT:
     def loginIotApp(self,data):
